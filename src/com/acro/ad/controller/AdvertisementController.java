@@ -31,18 +31,18 @@ public class AdvertisementController {
     }
 
   }
-  public AdViewResponse getPopularAdvertisementByRegion(Long advId,int regionId){
-    AdViewRequest adViewRequest=new AdViewRequest();
-    if(adViewRequest!=null&&adViewRequest.getAdvId()!=null&&adViewRequest.getAdvId()>0 &&
-          adViewRequest.getRegionId()>0){
-      AdViewResponse response=advertisementService.getPopularAdvertisementByRegion(adViewRequest.advId,adViewRequest.regionId);
+  public AdViewResponse getPopularAdvertisementByRegion(Long advId,int regionId) {
+    AdViewRequest adViewRequest = new AdViewRequest();
+    if (adViewRequest != null && adViewRequest.getAdvId() != null && adViewRequest.getAdvId() > 0 &&
+            adViewRequest.getRegionId() > 0) {
+      AdViewResponse response = advertisementService.getPopularAdvertisementByRegion(adViewRequest.advId, adViewRequest.regionId);
       return response;
-    }else{
-      throw new RuntimeException("Not getting popular advertisement by Regions");
+    } else {
+      throw new RuntimeException("Required fields are not passed");
     }
-
-
   }
+
+
 
 
 }
