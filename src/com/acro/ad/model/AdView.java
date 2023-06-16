@@ -20,6 +20,11 @@ public class AdView {
     this.adViewDate=adViewDate;
     this.viewDuration=viewDuration;
     }
+
+    public AdView() {
+
+    }
+
     public Long getAdvId() {
         return advId;
     }

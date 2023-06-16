@@ -20,29 +20,37 @@ public class AdvertisementController {
     }
   }
 
-  public AdvertisementResponse getAdvertisementById(Long advId) throws Exception {
-    AdvertisementRequest advertisementRequest = new AdvertisementRequest();
+  public AdvertisementResponse getAdvertisementById(Long advId) {
+    AdvertisementResponse advertisementResponse = new AdvertisementResponse();
+    if (advId != null && advId > 0) {
+      System.out.println("Retrieve Advertisement Id");
+      return advertisementService.getAdvertisementById(advertisementResponse.getAdvId());
+    } else if (advId == null) {
+      System.out.println("Not Retrieve Advertisement Id");
+    }
+    return null;
+  }
 
-    if (advertisementRequest!=null&& advertisementRequest.getAdvId() != null && advertisementRequest.getAdvId()>0) {
-      AdvertisementResponse response = advertisementService.getAdvertisementById(advertisementRequest.advId);
-      return response;
+  public AdvertisementResponse getAdvertisementByCompanyId(Long companyId) {
+    AdvertisementResponse advertisementResponse = new AdvertisementResponse();
+    if (companyId != null && companyId > 0) {
+      System.out.println("Received Advertisement Company Id");
+      return advertisementService.getAdvertisementByCompanyId(advertisementResponse.getCompanyId());
+    } else if (companyId == null) {
+      System.out.println("Advertisement company Id is null");
+    }
+    return null;
+  }
+
+
+  public AdViewResponse getPopularAdvertisementByRegion(int regionId) {
+    AdViewResponse adViewResponse = new AdViewResponse();
+    if (regionId > 0) {
+      System.out.println("Received popular Advertisement by Region Id");
+      return advertisementService.getPopularAdvertisementByRegion(adViewResponse.getRegionId());
     } else {
-      throw new RuntimeException("Required fields are not passed");
+      throw new RuntimeException("Not valid Region Id");
     }
 
   }
-  public AdViewResponse getPopularAdvertisementByRegion(Long advId,int regionId) {
-    AdViewRequest adViewRequest = new AdViewRequest();
-    if (adViewRequest != null && adViewRequest.getAdvId() != null && adViewRequest.getAdvId() > 0 &&
-            adViewRequest.getRegionId() > 0) {
-      AdViewResponse response = advertisementService.getPopularAdvertisementByRegion(adViewRequest.advId, adViewRequest.regionId);
-      return response;
-    } else {
-      throw new RuntimeException("Required fields are not passed");
-    }
-  }
-
-
-
-
 }

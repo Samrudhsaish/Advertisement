@@ -1,6 +1,5 @@
 package com.acro.ad.repository;
 import com.acro.ad.dbconnection.DbConnection;
-import com.acro.ad.dto.ContentResponse;
 import com.acro.ad.model.Content;
 import java.sql.*;
 import java.time.LocalDate;
@@ -103,7 +102,7 @@ public  class ContentRepositoryImpl implements IContentRepository {
     }
 
 
-    public List<ContentResponse> getContentByAdvertisementCompanyId(Long companyId) {
+    public List<Content> getContentByAdvertisementCompanyId(Long companyId) {
         Connection connection= dbconnection.getConnection();
         List<Content> contents=new ArrayList<>();
 

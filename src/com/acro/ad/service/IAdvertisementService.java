@@ -8,7 +8,7 @@ public interface IAdvertisementService {
     AdvertisementResponse createAdvertisement(AdvertisementRequest advertisementRequest);
     AdvertisementResponse getAdvertisementById(Long advId);
     AdvertisementResponse getAdvertisementByCompanyId(Long companyId);
-     AdViewResponse getPopularAdvertisementByRegion(Long advId, int regionId);
+     AdViewResponse getPopularAdvertisementByRegion(int regionId);
 
 
     }

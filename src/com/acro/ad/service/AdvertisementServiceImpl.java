@@ -1,8 +1,6 @@
 package com.acro.ad.service;
-import com.acro.ad.dto.AdViewResponse;
-import com.acro.ad.dto.AdvertisementRequest;
-import com.acro.ad.dto.AdvertisementResponse;
-import com.acro.ad.dto.ContentResponse;
+import com.acro.ad.dto.*;
+import com.acro.ad.model.AdView;
 import com.acro.ad.model.Advertisement;
 import com.acro.ad.model.Content;
 import com.acro.ad.repository.AdvertisementRepositoryImpl;
@@ -84,48 +82,63 @@ public class AdvertisementServiceImpl implements IAdvertisementService {
         return advertisementResponse;
     }
 
+    private AdViewResponse createAdviewResponse(AdView adView) {
+        AdViewResponse adViewResponse = new AdViewResponse();
+        adViewResponse.setAdvId(adView.getAdvId());
+        adViewResponse.setPlatformId(adView.getPlatformId());
+        adViewResponse.setRegionId(adView.getRegionId());
+        adViewResponse.setCountryId(adView.getCountryId());
+        adViewResponse.setAdViewDate(adView.getAdViewDate());
+        adViewResponse.setViewDuration(adView.getViewDuration());
+        return adViewResponse;
+    }
+
     public AdvertisementResponse getAdvertisementById(Long advId) {
-        AdvertisementRequest advertisementRequest = new AdvertisementRequest();
-        if (advertisementRequest.getAdvId() != null && advertisementRequest.getAdvId() > 0
-                && advertisementRequest.getCompanyId() != null && advertisementRequest.getCompanyId() > 0) {
-            Advertisement advertisement = advertisementRepository.getAdvertisementById(advertisementRequest.getAdvId());
+
+        if (advId != null && advId > 0) {
+            Advertisement advertisement = advertisementRepository.getAdvertisementById(advId);
             if (advertisement != null) {
-                System.out.println("Retrieve Advertisement by advId" + advertisement.getAdvId());
+                System.out.println("Retrieved Advertisement Id " + advertisement.getAdvId());
                 AdvertisementResponse advertisementResponse = createAdvertisementResponse(advertisement);
-                List<Content> contentByAdvertisementId = advertisementRepository.getContentByAdvertisementId(advertisementResponse.getAdvId());
-                contentByAdvertisementId.forEach(content -> populateContentResponse(advertisementResponse, content));
+                List<Content> contentByAdvertisementById = contentRepository.getContentByAdvertisementId(advertisement.getAdvId());
+                contentByAdvertisementById.forEach(c -> populateContentResponse(advertisementResponse, c));
                 return advertisementResponse;
+
             }
         }
-
         return null;
     }
+
 
     public AdvertisementResponse getAdvertisementByCompanyId(Long companyId) {
-        AdvertisementRequest advertisementRequest = new AdvertisementRequest();
-        if (advertisementRequest.getCompanyId() != null && advertisementRequest.getCompanyId() > 0) {
-            Advertisement advertisement = advertisementRepository.getAdvertisementByCompanyId(advertisementRequest.getCompanyId());
+        if (companyId != null && companyId > 0) {
+            Advertisement advertisement = advertisementRepository.getAdvertisementByCompanyId(companyId);
             if (advertisement != null) {
-                System.out.println("Retrieve Advertisement By Company Id " + advertisement.getCompanyId());
+                System.out.println("Retrieve Advertisement company Id" + advertisement.getCompanyId());
                 AdvertisementResponse advertisementResponse = createAdvertisementResponse(advertisement);
-                List<Content> contentByCompanyId = advertisementRepository.getContentByAdvertisementCompanyId(advertisementResponse.getCompanyId());
-                contentByCompanyId.forEach(content -> populateContentResponse(advertisementResponse, content));
+                List<Content> contentByAdvertisementCompanyId = contentRepository.getContentByAdvertisementCompanyId(advertisement.getCompanyId());
+                contentByAdvertisementCompanyId.forEach(c -> populateContentResponse(advertisementResponse, c));
                 return advertisementResponse;
-
             }
         }
-        return null;
-    }
-
-
-    public AdViewResponse getPopularAdvertisementByRegion(Long advId, int regionId) {
-
 
         return null;
     }
+
+
+    @Override
+    public AdViewResponse getPopularAdvertisementByRegion(int regionId) {
+        if (regionId > 0) {
+            AdView adView = advertisementRepository.getPopularAdvertisementByRegion(regionId);
+            if (adView != null) {
+                System.out.println("Retrieve popular Advertisement Region Id" + adView.getRegionId());
+                AdViewResponse adViewResponse = createAdviewResponse(adView);
+                return adViewResponse;
+            }
+        }
+
+        return null;
+    }
+
 }
-
-
-
-
 

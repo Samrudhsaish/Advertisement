@@ -10,15 +10,22 @@ public class TestClass {//advid-pk,advname,publisheddate,companyid-pk
 
      public static void main(String[] args) {
          TestClass test=new TestClass();
-        //Long advId=null;
+
 
          try{
             AdvertisementRequest advertisementRequest = new AdvertisementRequest();
+            AdViewRequest adViewRequest=new AdViewRequest();
             advertisementRequest.setAdvId(7L);
-           // advertisementRequest.setCompanyId(1L);
+            advertisementRequest.setCompanyId(1L);
+            adViewRequest.setRegionId(105);
 
-             AdvertisementResponse advertisementResponseById=test.advertisementController.getAdvertisementById(advertisementRequest.advId);
+             AdvertisementResponse advertisementResponseById=test.advertisementController.getAdvertisementById(advertisementRequest.getAdvId());
              System.out.println(advertisementResponseById);
+             AdvertisementResponse advertisementResponseByCompanyId=test.advertisementController.getAdvertisementByCompanyId(advertisementRequest.getCompanyId());
+             System.out.println(advertisementResponseByCompanyId);
+             AdViewResponse adViewResponseByGetPopularAdByRegionId=test.advertisementController.getPopularAdvertisementByRegion(adViewRequest.getRegionId());
+             System.out.println(adViewResponseByGetPopularAdByRegionId);
+
 
          } catch (Exception e) {
               throw new RuntimeException(e);
@@ -48,5 +55,13 @@ public class TestClass {//advid-pk,advname,publisheddate,companyid-pk
        return contentRequest;
 
     }
+    /*private AdViewRequest createAdViewRequest(){
+        AdViewRequest adViewRequest=new AdViewRequest();
+        adViewRequest.setAdv("Colgate Toothpaste");
+        adViewRequest.setCompanyId(1L);
+        adViewRequest.setPublishedDate(LocalDate.now());
+        adViewRequest.setContentRequests(contentRequest);
+        return adViewRequest;
+    }*/
 
 }

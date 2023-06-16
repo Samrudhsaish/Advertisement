@@ -9,7 +9,7 @@ public interface IContentService {
     ContentResponse createContent(ContentRequest contentRequest);
   //  List<Content> saveContentList(List<Content>content);
     ContentResponse getContentByContentName(String contentName);
-    List<ContentResponse> getContentByAdvertisementCompanyId(Long companyId);
+    List<Content> getContentByAdvertisementCompanyId(Long companyId);
 
 
 

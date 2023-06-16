@@ -51,7 +51,7 @@ public  class ContentServiceImpl implements IContentService {
     }
 
     @Override
-    public List<ContentResponse> getContentByAdvertisementCompanyId(Long companyId) {
+    public List<Content> getContentByAdvertisementCompanyId(Long companyId) {
        return contentRepository.getContentByAdvertisementCompanyId(companyId);
     }
 
